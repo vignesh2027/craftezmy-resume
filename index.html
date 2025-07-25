@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMR - Free AI-Powered Resume & Cover Letter Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <div class="logo-icon">📄</div>
+                    <div class="logo-text">
+                        <h1>CMR</h1>
+                        <span>Craftez My Resume</span>
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <a href="#templates" class="nav-link">Templates</a>
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="form.html" class="nav-link">Builder</a>
+                    <a href="cover.html" class="nav-link">Cover Letter</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <select id="languageSelector" class="language-selector" onchange="changeLanguage()">
+                      <option value="en">English</option>
+                      <option value="ta">தமிழ்</option>
+                      <option value="hi">हिंदी</option>
+                    </select>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content container">
+                <div class="hero-badge">✨ Now with AI-Assist & 8+ Professional Templates</div>
+                <h1 class="hero-title">Build a Job-Winning Resume, <span class="gradient-text">Completely Free</span></h1>
+                <p class="hero-description">Create a professional resume and cover letter in minutes with our intuitive builder. ATS-friendly, customizable, and powered by AI to help you land your dream job.</p>
+                <div class="hero-actions">
+                    <a href="form.html" class="btn btn-primary btn-large">Start Building for Free</a>
+                    <a href="#templates" class="btn btn-secondary btn-large">Explore Templates</a>
+                </div>
+                <div class="feature-highlights">
+                  <div class="feature-item">
+                    <span class="feature-icon">📄</span>
+                    <span>Resume + Cover Letter</span>
+                  </div>
+                  <div class="feature-item">
+                    <span class="feature-icon">🤖</span>
+                    <span>ATS Optimizer</span>
+                  </div>
+                  <div class="feature-item">
+                    <span class="feature-icon">🎨</span>
+                    <span>Multiple Templates</span>
+                  </div>
+                  <div class="feature-item">
+                    <span class="feature-icon">💾</span>
+                    <span>Auto-Save</span>
+                  </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">500k+</span>
+                        <span class="stat-label">Resumes Created</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">8+</span>
+                        <span class="stat-label">Pro Templates</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Free Forever</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add this section after the hero section and before the templates section -->
+        <section class="selected-resumes-section">
+          <div class="container">
+            <div class="section-header">
+              <h2 class="section-title">Job-Winning Resume Examples</h2>
+              <p class="section-description">Get inspired by real resumes that landed jobs at top companies. Click "Use This Template" to auto-fill your resume with proven content.</p>
+            </div>
+            <div class="selected-resumes-grid">
+              <div class="resume-example-card">
+                <div class="company-badge">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40'%3E%3Crect fill='%23004c8c' width='100' height='40'/%3E%3Ctext x='50' y='25' fill='white' text-anchor='middle' font-family='Arial' font-size='14' font-weight='bold'%3ETCS%3C/text%3E%3C/svg%3E" alt="TCS" class="company-logo">
+                  <span class="job-title">Software Engineer</span>
+                </div>
+                <div class="resume-preview">
+                  <h4>Rajesh Kumar</h4>
+                  <p class="preview-summary">Full-stack developer with 3+ years experience in Java, React, and cloud technologies...</p>
+                  <div class="preview-skills">
+                    <span class="skill-preview">Java</span>
+                    <span class="skill-preview">React</span>
+                    <span class="skill-preview">AWS</span>
+                    <span class="skill-preview">+5 more</span>
+                  </div>
+                </div>
+                <div class="resume-actions">
+                  <button onclick="loadTCSResume()" class="btn btn-primary btn-full">Use This Template</button>
+                  <button onclick="previewResume('tcs')" class="btn btn-outline btn-full">Quick Preview</button>
+                </div>
+              </div>
+
+              <div class="resume-example-card">
+                <div class="company-badge">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40'%3E%3Crect fill='%23007cc3' width='100' height='40'/%3E%3Ctext x='50' y='25' fill='white' text-anchor='middle' font-family='Arial' font-size='12' font-weight='bold'%3EInfosys%3C/text%3E%3C/svg%3E" alt="Infosys" class="company-logo">
+                  <span class="job-title">System Analyst</span>
+                </div>
+                <div class="resume-preview">
+                  <h4>Priya Sharma</h4>
+                  <p class="preview-summary">Business analyst with expertise in requirements gathering, process optimization...</p>
+                  <div class="preview-skills">
+                    <span class="skill-preview">SQL</span>
+                    <span class="skill-preview">Python</span>
+                    <span class="skill-preview">Tableau</span>
+                    <span class="skill-preview">+4 more</span>
+                  </div>
+                </div>
+                <div class="resume-actions">
+                  <button onclick="loadInfosysResume()" class="btn btn-primary btn-full">Use This Template</button>
+                  <button onclick="previewResume('infosys')" class="btn btn-outline btn-full">Quick Preview</button>
+                </div>
+              </div>
+
+              <div class="resume-example-card">
+                <div class="company-badge">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40'%3E%3Crect fill='%23ff6b35' width='100' height='40'/%3E%3Ctext x='50' y='25' fill='white' text-anchor='middle' font-family='Arial' font-size='14' font-weight='bold'%3EZoho%3C/text%3E%3C/svg%3E" alt="Zoho" class="company-logo">
+                  <span class="job-title">Product Manager</span>
+                </div>
+                <div class="resume-preview">
+                  <h4>Arjun Patel</h4>
+                  <p class="preview-summary">Product manager with 5+ years driving user-centric solutions and cross-functional teams...</p>
+                  <div class="preview-skills">
+                    <span class="skill-preview">Product Strategy</span>
+                    <span class="skill-preview">Agile</span>
+                    <span class="skill-preview">Analytics</span>
+                    <span class="skill-preview">+6 more</span>
+                  </div>
+                </div>
+                <div class="resume-actions">
+                  <button onclick="loadZohoResume()" class="btn btn-primary btn-full">Use This Template</button>
+                  <button onclick="previewResume('zoho')" class="btn btn-outline btn-full">Quick Preview</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="templates" class="templates-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Find Your Perfect Template</h2>
+                    <p class="section-description">Choose from a variety of professionally designed templates to match your industry and style. All templates are fully customizable and ATS-friendly.</p>
+                </div>
+                <div class="template-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="professional">Professional</button>
+                    <button class="filter-btn" data-filter="creative">Creative</button>
+                    <button class="filter-btn" data-filter="modern">Modern</button>
+                </div>
+                <div class="template-grid">
+                    <div class="template-card" data-category="modern professional">
+                        <div class="template-thumbnail">📄</div>
+                        <div class="template-info">
+                            <h3>Modern Professional</h3>
+                            <p>A clean, contemporary design perfect for most industries.</p>
+                        </div>
+                    </div>
+                    <div class="template-card" data-category="creative">
+                        <div class="template-thumbnail">🎨</div>
+                        <div class="template-info">
+                            <h3>Creative Bold</h3>
+                            <p>An eye-catching design for creative roles.</p>
+                        </div>
+                    </div>
+                    <div class="template-card" data-category="professional">
+                        <div class="template-thumbnail">🏛️</div>
+                        <div class="template-info">
+                            <h3>Classic Traditional</h3>
+                            <p>A timeless layout for conservative fields like law and finance.</p>
+                        </div>
+                    </div>
+                    <div class="template-card" data-category="modern">
+                        <div class="template-thumbnail">✨</div>
+                        <div class="template-info">
+                            <h3>Elegant Minimal</h3>
+                            <p>A sophisticated and minimal design that focuses on content.</p>
+                        </div>
+                    </div>
+                    <div class="template-card" data-category="modern professional">
+                        <div class="template-thumbnail">🤖</div>
+                        <div class="template-info">
+                            <h3>ATS Optimized</h3>
+                            <p>A simple, text-based template to beat the bots.</p>
+                        </div>
+                    </div>
+                    <div class="template-card" data-category="professional">
+                        <div class="template-thumbnail">🏆</div>
+                        <div class="template-info">
+                            <h3>Executive Premium</h3>
+                            <p>An authoritative design for senior leaders and executives.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Everything You Need, Nothing You Don't</h2>
+                    <p class="section-description">Our features are designed to make resume building fast, easy, and effective.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3>AI-Powered Suggestions</h3>
+                        <p>Get smart suggestions for your summary and job descriptions to make your resume shine.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Easy Customization</h3>
+                        <p>Change colors, fonts, and layouts with a single click to match your personal brand.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📥</div>
+                        <h3>PDF & Data Export</h3>
+                        <p>Download a pixel-perfect PDF or export your data as JSON to use anywhere.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Privacy Focused</h3>
+                        <p>Your data is saved directly in your browser. We never see or store your personal information.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✍️</div>
+                        <h3>Cover Letter Builder</h3>
+                        <p>Create a matching cover letter for your resume to complete your job application.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🆓</div>
+                        <h3>100% Free Forever</h3>
+                        <p>No subscriptions, no watermarks, no hidden fees. Just a powerful, free tool for everyone.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 CMR Resume Builder. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
