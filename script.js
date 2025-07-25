@@ -505,26 +505,28 @@ function setupEventListeners(page) {
     // Enhanced builder listeners with debouncing
     const debouncedUpdate = debounce(updatePreview, 300)
 
-    document.getElementById("templateSelect").onchange = changeTemplate
-    document.getElementById("fontSelect").onchange = changeFont
+    const templateSelect = document.getElementById("templateSelect")
+    if (templateSelect) templateSelect.onchange = changeTemplate
+
+    const fontSelect = document.getElementById("fontSelect")
+    if (fontSelect) fontSelect.onchange = changeFont
+
     document
       .querySelectorAll(".color-btn")
       .forEach((btn) => (btn.onclick = (e) => changeColor(e.currentTarget.dataset.color)))
-    document.getElementById("atsToggle").onclick = toggleATSMode
-    document.getElementById("download-pdf").onclick = downloadPDF
-    document.getElementById("export-data").onclick = exportData
-    document.getElementById("import-data-btn").onclick = () => document.getElementById("import-data-input").click()
-    document.getElementById("import-data-input").onchange = importData
-    document.getElementById("analyze-resume").onclick = analyzeResume
-    document.getElementById("load-sample").onclick = loadSampleData
-    document.getElementById("photo").onchange = handlePhotoUpload
+
+    const atsToggle = document.getElementById("atsToggle")
+    if (atsToggle) atsToggle.onclick = toggleATSMode
 
     // Enhanced form input listeners with auto-save
-    document.querySelector(".builder-main").addEventListener("input", (e) => {
-      debouncedUpdate()
-      autoSaveData()
-      updateATSScore()
-    })
+    const builderMain = document.querySelector(".builder-main")
+    if (builderMain) {
+      builderMain.addEventListener("input", (e) => {
+        debouncedUpdate()
+        autoSaveData()
+        updateATSScore()
+      })
+    }
 
     // Tab switching
     document.querySelectorAll(".tab-btn").forEach((btn) => (btn.onclick = (e) => showTab(e.currentTarget.dataset.tab)))
@@ -538,9 +540,8 @@ function setupEventListeners(page) {
 
   if (page === "cover") {
     // Cover letter specific listeners
-    document.querySelector(".cover-form").oninput = updateCoverPreview
-    document.getElementById("download-cover-pdf").onclick = downloadCoverLetterPDF
-    document.getElementById("generate-ai-cover").onclick = generateAICover
+    const coverForm = document.querySelector(".cover-form")
+    if (coverForm) coverForm.oninput = updateCoverPreview
   }
 
   if (page === "landing") {
@@ -581,7 +582,8 @@ function setupCoverLetterListeners() {
 function setupLandingPageListeners() {
   document.querySelectorAll(".filter-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-      document.querySelector(".filter-btn.active").classList.remove("active")
+      const activeBtn = document.querySelector(".filter-btn.active")
+      if (activeBtn) activeBtn.classList.remove("active")
       btn.classList.add("active")
       const filter = btn.dataset.filter
       document.querySelectorAll(".template-card").forEach((card) => {
@@ -697,6 +699,39 @@ function populateForm() {
   setValue("coverManager", coverLetterData.manager)
   setValue("coverFit", coverLetterData.fit)
   setValue("coverAdditional", coverLetterData.additional)
+
+  // Update the template selector in the populateForm function or wherever template options are set
+  const templateSelectElement = document.getElementById("templateSelect")
+  if (templateSelectElement) {
+    templateSelectElement.innerHTML = `
+    <option value="modern">Modern Professional</option>
+    <option value="classic">Classic Traditional</option>
+    <option value="elegant">Elegant Minimal</option>
+    <option value="creative">Creative Bold</option>
+    <option value="ats-friendly">ATS Optimized</option>
+    <option value="executive">Executive Premium</option>
+    <option value="tech">Tech Specialist</option>
+    <option value="academic">Academic Scholar</option>
+    <option value="modern1">Modern Gradient</option>
+    <option value="modern2">Modern Sidebar</option>
+    <option value="modern3">Modern Banner</option>
+    <option value="elegant1">Elegant Classic</option>
+    <option value="elegant2">Elegant Purple</option>
+    <option value="elegant3">Elegant Serif</option>
+    <option value="creative1">Creative Pink</option>
+    <option value="creative2">Creative Zigzag</option>
+    <option value="creative3">Creative Geometric</option>
+    <option value="professional1">Professional Corporate</option>
+    <option value="professional2">Professional Executive</option>
+    <option value="professional3">Professional Clean</option>
+    <option value="minimalist1">Minimalist Simple</option>
+    <option value="minimalist2">Minimalist Sidebar</option>
+    <option value="minimalist3">Minimalist Lines</option>
+    <option value="corporate1">Corporate Executive</option>
+    <option value="corporate2">Corporate Letterhead</option>
+    <option value="corporate3">Corporate Business</option>
+  `
+  }
 }
 
 function setValue(id, value) {
@@ -729,14 +764,26 @@ async function renderPreview() {
 
   try {
     const response = await fetch(templatePath)
-    if (!response.ok) throw new Error(`Template not found: ${templatePath}`)
-    const templateHtml = await response.text()
+    if (!response.ok) {
+      // Fallback to modern template if template not found
+      const fallbackResponse = await fetch("templates/modern.html")
+      if (!fallbackResponse.ok) throw new Error(`Template not found: ${templatePath}`)
+      const templateHtml = await fallbackResponse.text()
 
-    const previewContent = document.getElementById("previewContent")
-    if (previewContent) {
-      previewContent.innerHTML = templateHtml
-      populateTemplate()
-      applyCustomizations()
+      const previewContent = document.getElementById("previewContent")
+      if (previewContent) {
+        previewContent.innerHTML = templateHtml
+        populateTemplate()
+        applyCustomizations()
+      }
+    } else {
+      const templateHtml = await response.text()
+      const previewContent = document.getElementById("previewContent")
+      if (previewContent) {
+        previewContent.innerHTML = templateHtml
+        populateTemplate()
+        applyCustomizations()
+      }
     }
   } catch (error) {
     console.error("Error loading template:", error)
@@ -1031,7 +1078,8 @@ function loadSelectedResume(resumeKey) {
   showSuccessMessage(`✅ Resume template loaded successfully! You can now customize it with your details.`)
 
   // Scroll to top of form
-  document.querySelector(".form-container").scrollIntoView({ behavior: "smooth" })
+  const formContainer = document.querySelector(".form-container")
+  if (formContainer) formContainer.scrollIntoView({ behavior: "smooth" })
 }
 
 function previewResume(resumeKey) {
@@ -1162,7 +1210,11 @@ function showSuccessMessage(message) {
   // Hide and remove toast
   setTimeout(() => {
     toast.classList.remove("show")
-    setTimeout(() => document.body.removeChild(toast), 300)
+    setTimeout(() => {
+      if (document.body.contains(toast)) {
+        document.body.removeChild(toast)
+      }
+    }, 300)
   }, 4000)
 }
 
@@ -1315,10 +1367,6 @@ function getScoreClass(score) {
 }
 
 // --- AUTO-SAVE FUNCTIONALITY ---
-// function autoSaveData() {
-//   enhancedAutoSave()
-// }
-
 function loadAutoSavedData() {
   try {
     const saved = localStorage.getItem("cmr_autosave")
@@ -1625,8 +1673,10 @@ function changeFont() {
 
 function changeColor(color) {
   uiSettings.color = color
-  document.querySelector(".color-btn.active")?.classList.remove("active")
-  document.querySelector(`.color-btn[data-color="${color}"]`)?.classList.add("active")
+  const activeBtn = document.querySelector(".color-btn.active")
+  if (activeBtn) activeBtn.classList.remove("active")
+  const newActiveBtn = document.querySelector(`.color-btn[data-color="${color}"]`)
+  if (newActiveBtn) newActiveBtn.classList.add("active")
   updatePreview()
   saveState()
 }
@@ -1906,3 +1956,6 @@ window.continueBuilding = continueBuilding
 window.generateCoverLetter = generateCoverLetter
 window.loadQuickTips = loadQuickTips
 window.closeQuitBot = closeQuitBot
+window.generateAICover = generateAICover
+window.downloadCoverPDF = downloadCoverLetterPDF
+window.updatePreview = updatePreview
